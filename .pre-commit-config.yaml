@@ -1,0 +1,40 @@
+---
+default_stages: [commit, push]
+default_language_version:
+  python: python3
+minimum_pre_commit_version: "2.0.0"
+repos:
+  - repo: https://github.com/thlorenz/doctoc.git
+    rev: v2.2.0
+    hooks:
+      - id: doctoc
+        name: Add TOC for md files
+        files: \.md$
+        args:
+          - "--maxlevel"
+          - "4"
+          - "--title"
+          - "**Table of Contents**"
+  - repo: https://github.com/Lucas-C/pre-commit-hooks
+    rev: v1.2.0
+    hooks:
+      - id: forbid-tabs
+        name: Fail if tabs are used in the project
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.3.0
+    hooks:
+      - id: check-merge-conflict
+      - id: debug-statements
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: check-executables-have-shebangs
+      - id: trailing-whitespace
+      - id: pretty-format-json
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.26.3
+    hooks:
+      - id: yamllint
+        name: Check YAML files with yamllint
+        entry: 'yamllint -d "{extends: default, rules: {line-length: {max: 110}}}" --strict'
+        types: [yaml]

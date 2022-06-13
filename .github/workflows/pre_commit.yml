@@ -1,0 +1,20 @@
+---
+name: 'pre-commit'
+
+on:  # yamllint disable-line rule:truthy
+  workflow_call:
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout ${{ github.ref }} ( ${{ github.sha }} )"
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+#      - uses: actions/setup-python@v4
+#        with:
+#          python-version: '3.10'
+#      - uses: pre-commit/action@646c83fcd040023954eafda54b4db0192ce70507  # 3.0.0
+#        with:
+#          extra_args: --all-files --show-diff-on-failure --color always
