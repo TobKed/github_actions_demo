@@ -9,6 +9,16 @@ on:  # yamllint disable-line rule:truthy
     tags:
       - latest
   workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: 'Environment'
+        required: true
+        default: 'uat'
+        options:
+          - uat
+          - stg
+          - prd
 
 
 concurrency:
