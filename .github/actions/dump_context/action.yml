@@ -2,13 +2,40 @@
 name: 'Dump GitHub context'
 description: 'Dump GitHub context'
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
-    - name: 'Dump GitHub context'
+    - name: Dump GitHub context
       shell: bash
-      run: echo "$GITHUB_CONTEXT"
-      env:
-        GITHUB_CONTEXT: ${{ toJson(github) }}
-    - name: 'Dump environmental variables'
+      run: |
+        echo 'Dump GitHub context'
+        echo '${{ toJSON(github) }}' | jq
+    - name: Dump job context
       shell: bash
-      run: env | sort
+      run: |
+        echo 'Dump job context'
+        echo '${{ toJSON(job) }}' | jq
+    - name: Dump steps context
+      shell: bash
+      run: |
+        echo 'Dump steps context'
+        echo '${{ toJSON(steps) }}' | jq
+    - name: Dump runner context
+      shell: bash
+      run: |
+        echo 'Dump runner context'
+        echo '${{ toJSON(runner) }}' | jq
+    - name: Dump strategy context
+      shell: bash
+      run: |
+        echo 'Dump strategy context'
+        echo '${{ toJSON(strategy) }}' | jq
+    - name: Dump matrix context
+      shell: bash
+      run: |
+        echo 'Dump matrix context'
+        echo '${{ toJSON(matrix) }}' | jq
+    - name: Dump environment variables
+      shell: bash
+      run: |
+        echo 'Dump environment variables'
+        env | sort
