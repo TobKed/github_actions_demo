@@ -25,6 +25,8 @@ concurrency:
   group: ci-${{ github.event.inputs.environment }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
+env:
+ BRANCH_NAME: ${{ github.head_ref || github.ref_name }} 
 
 jobs:
   pre-commit:
