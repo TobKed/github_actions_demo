@@ -1,0 +1,27 @@
+---
+name: "ci 2"
+
+on:   # yamllint disable-line rule:truthy
+  workflow_run:
+    workflows: ["pre-commit"]
+    types:
+      - completed
+
+
+concurrency:
+  group: ci-dev-deploy-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  context-check:
+    runs-on: ubuntu-latest
+    needs: [pre-commit]
+    steps:
+      # composite actions
+      - name: 'Dump context'
+        uses: ./.github/actions/dump_context
