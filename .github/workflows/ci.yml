@@ -29,6 +29,7 @@ concurrency:
 jobs:
   pre-commit:
     uses: ./.github/workflows/pre_commit.yml
+    environment: test
     secrets: inherit
 
   tests:
